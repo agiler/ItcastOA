@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd" >
+
+<struts>
+	<!-- 设定为开发模式 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 配置action的扩展名为.action -->
+	<constant name="struts.action.extension" value="action" />
+	<!-- 设置主题为simple -->
+	<constant name="struts.ui.theme" value="simple" />
+
+
+	<!-- action配置放到包配置里面 -->
+	<package name="default" namespace="/" extends="struts-default">
+
+		<!-- 配置Action，与Spring整合后，class属性写的就不是类的全限定名了，而是bean的名称，因为要去Spring的容器中获取 -->
+		<action name="testAction" class="testAction">
+			<result name="success">/test.jsp</result>
+		</action>
+
+
+		<!-- 岗位管理 -->
+		<action name="roleAction_*" class="roleAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/roleAction/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/roleAction/saveUI.jsp</result>
+			<result name="toList" type="redirectAction">roleAction_list</result>
+		</action>
+
+
+	</package>
+
+</struts>
